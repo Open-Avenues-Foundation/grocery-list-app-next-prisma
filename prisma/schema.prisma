@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model GroceryList {
+  id    Int               @id @default(autoincrement())
+  name  String
+  items GroceryListItem[]
+}
+
+model GroceryListItem {
+  id            Int         @id @default(autoincrement())
+  name          String
+  purchased     Boolean     @default(false)
+  groceryListId Int
+  groceryList   GroceryList @relation(fields: [groceryListId], references: [id])
+}
