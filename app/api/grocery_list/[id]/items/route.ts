@@ -6,10 +6,11 @@ const prisma = new PrismaClient()
 // GET /api/grocery_list/[id]/items - Get all items for a specific grocery list
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const groceryListId = parseInt(params.id)
+    const { id } = await params
+    const groceryListId = parseInt(id)
     
     if (isNaN(groceryListId)) {
       return Response.json({
@@ -65,10 +66,11 @@ export async function GET(
 // POST /api/grocery_list/[id]/items - Add a new item to a specific grocery list
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const groceryListId = parseInt(params.id)
+    const { id } = await params
+    const groceryListId = parseInt(id)
     
     if (isNaN(groceryListId)) {
       return Response.json({
@@ -125,10 +127,11 @@ export async function POST(
 // PATCH /api/grocery_list/[id]/items - Bulk update items in a specific grocery list
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const groceryListId = parseInt(params.id)
+    const { id } = await params
+    const groceryListId = parseInt(id)
     
     if (isNaN(groceryListId)) {
       return Response.json({
@@ -197,10 +200,11 @@ export async function PATCH(
 // DELETE /api/grocery_list/[id]/items - Delete items from a specific grocery list
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const groceryListId = parseInt(params.id)
+    const { id } = await params
+    const groceryListId = parseInt(id)
     
     if (isNaN(groceryListId)) {
       return Response.json({

@@ -6,10 +6,11 @@ const prisma = new PrismaClient()
 // GET /api/grocery_list/[id] - Get a specific grocery list by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id)
+    const { id: idParam } = await params
+    const id = parseInt(idParam)
     
     if (isNaN(id)) {
       return Response.json({
@@ -56,10 +57,11 @@ export async function GET(
 // PUT /api/grocery_list/[id] - Update a specific grocery list
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id)
+    const { id: idParam } = await params
+    const id = parseInt(idParam)
     
     if (isNaN(id)) {
       return Response.json({
@@ -113,10 +115,11 @@ export async function PUT(
 // DELETE /api/grocery_list/[id] - Delete a specific grocery list
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id)
+    const { id: idParam } = await params
+    const id = parseInt(idParam)
     
     if (isNaN(id)) {
       return Response.json({
